@@ -1,0 +1,54 @@
+<testScript name="TS2" description="Covering all the positive Test Cases">
+    <setup name="setup" description="ensuring if batch route directory is empty">
+		<property name="routeId" value="setup"/>
+		<property name="FileWatcherExceptionLocation" value="C:/RS_ComponentsTest/FW_Error"/>
+	</setup>
+	<testCase name="TestCase1" description="Files which we need to process in CollabT should come in FSInbound location which in turns get copied to the FS Outbound location(CollabTMainRouteFSInboundLocation) with errorOnTimeout as error">
+		<property name="scenario" value="TC1"/>
+		<property name="routeId" value="Route_TestCase1"/>
+		<property name="inputFileLocation" value="C:/RS_ComponentsTest/InputFiles"/>
+		<property name="copyCollabTInputLocation" value="C:/Edifecs/work/batch/input"/>
+		<property name="FileWatcherExceptionLocation" value="C:/RS_ComponentsTest/FW_Error"/>
+		<property name="wait.fileInclusionMasks" value="**/*"/>
+		<property name="wait.fileExclusionMasks" value="**/*inprogress*.*"/>
+		<property name="wait.fileCount" value="12"/>
+		<property name="resetTimeout" value="no"/>
+		<property name="wait.timeoutInMillis" value="20000"/>
+		<property name="wait.errorOnTimeout" value="success"/>
+		<property name="copyCollabTInputLocation" value="C:/Edifecs/work/batch/input1"/>
+    </testCase>
+	<testCase name="TestCase2" description="Files which comes in CollabT Output folder should get copied to location provided in the script with errorOnTimeout as success">
+		<property name="scenario" value="TC2"/>
+		<property name="routeId" value="Route_TestCase2"/>
+		<property name="collabTOutputLocation" value="C:/Edifecs/work/batch"/>
+		<property name="CopyOutputDestination" value="C:/RS_ComponentsTest/Actual_Output"/>
+		<property name="wait.fileInclusionMasks" value="**/*"/>
+		<property name="wait.fileExclusionMasks" value="**/*inprogress*.*"/>
+		<property name="wait.fileCount" value="34"/>
+		<property name="wait.timeoutInMillis" value="60000"/>
+		<property name="resetTimeout" value="yes"/>
+		<property name="wait.errorOnTimeout" value="Error"/>
+		<property name="FileWatcherExceptionLocation" value="C:/RS_ComponentsTest/FW_Error"/>
+    </testCase>
+	<testCase name="TestCase3" description="Validating Pass Scenario">
+		<property name="scenario" value="TC3"/>
+		<property name="routeId" value="Route_TestCase3"/>
+		<property name="wait.fileInclusionMasks" value="**/*"/>
+		<property name="wait.fileExclusionMasks" value="**/*inprogress*.*"/>
+		<property name="wait.fileCount" value="26"/>
+		<property name="wait.timeoutInMillis" value="60000"/>
+		<property name="wait.errorOnTimeout" value="error"/>
+		<property name="resetTimeout" value="yes"/>
+		<property name="compareValExpectedDir" value="C:/RS_ComponentsTest/Expected_Output"/>
+		<property name="compareValActualDir" value="C:/RS_ComponentsTest/Actual_Output"/>
+		<property name="compareIncludeMasks" value="**/*.*"/>
+		<property name="ignoreFieldsFile" value="C:/regression-suite-components/conf/comparison-configurations.xml"/>
+		<property name="reportPath" value="C:/RS_ComponentsTest/Reports"/>
+		<property name="FileWatcherExceptionLocation" value="C:/RS_ComponentsTest/FW_Error"/>
+    </testCase>
+	<tearDown name="TearDownRoute">
+		<property name="routeId" value="tearDown"/>
+		<property name="deleteTracers" value="C:/Edifecs/XEServer/profiles/Batch-CT-TestData-Validation/workspace/tracer"/>
+		<property name="collabTWorkDirLocation" value="C:/Edifecs/work/batch/"/>
+    </tearDown>
+</testScript>
