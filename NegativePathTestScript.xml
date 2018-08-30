@@ -1,0 +1,52 @@
+<testScript name="TS1" description="description">
+    <setup name="setup" description="description">
+		<property name="routeId" value="SetupRoute"/>
+		<property name="copyTestDataSrc" value="${TestDataSetLocation}"/>
+		<property name="copyTestDataDest" value="${XESWorkspace}/test-data/input"/>
+	</setup>
+	<testCase name="TestCase1" description="Files which we need to process in CollabT should come in FSInbound location which in turns get copied to the FS Outbound location(CollabTMainRouteFSInboundLocation)">
+		<property name="scenario" value="TC1"/>
+		<property name="routeId" value="Route_TestCase1"/>
+		<property name="inputFileLocation" value="C:/RS_ComponentsTest/InputFiles"/>
+		<property name="copyCollabTInputLocation" value="C:/Edifecs/work/batch/input"/>
+		<property name="wait.fileInclusionMasks" value="**/*"/>
+		<property name="wait.fileExclusionMasks" value="**/*inprogress*.*"/>
+		<property name="wait.fileCount" value="10"/>
+		<property name="wait.timeoutInMillis" value="20000"/>
+		<property name="wait.errorOnTimeout" value="false"/>
+    </testCase>
+	<testCase name="TestCase2" description="Files which comes in CollabT Output foler should be zipped and copied to the FSOutbound location given in testscript">
+		<property name="scenario" value="TC2"/>
+		<property name="routeId" value="Route_TestCase2"/>
+		<property name="collabTOutputLocation" value="C:/Edifecs/work/batch"/>
+		<property name="CopyOutputDestination" value="C:/RS_ComponentsTest/OutputFiles"/>
+		<property name="collabTOutputLocationValidation" value="${WorkDir}/{Prp[E2EFolderName]}/{Prp[TestID]}/ValidateEDI/"/>
+		<property name="CopyValidateEDIDestination" value="C:/Edifecs/work/batch/input"/>
+    </testCase>
+	<testCase name="TestCase3" description="Delete all the files coming in the CollabT output directories using testscript">
+		<property name="scenario" value="TC3"/>
+		<property name="routeId" value="Route_TestCase3"/>
+		<property name="collabTWorkDirLocation" value="C:/Edifecs/work/batch"/>
+    </testCase>
+	<testCase name="TestCase4" description="Validating Pass Scenario">
+		<property name="scenario" value="TC4"/>
+		<property name="routeId" value="Route_TestCase4"/>
+		<property name="copyTestFileSrc" value="${XESWorkspace}/test-data/input"/>
+		<property name="copyTestFileIncludeMasks" value="**/*.properties;**/*.txt"/>
+		<property name="copyTestFileDest" value="C:/Edifecs/work/batch/input"/>
+		<property name="wait.fileInclusionMasks" value="**/*"/>
+		<property name="wait.fileExclusionMasks" value="**/*inprogress*.*"/>
+		<property name="wait.fileCount" value="9"/>
+		<property name="wait.timeoutInMillis" value="20000"/>
+		<property name="wait.errorOnTimeout" value="false"/>
+		<property name="compareValExpectedDir" value="C:/RS_ComponentsTest/SampleRegressionRouteAndTest_Route/samples_new/TestCase-Claims_Passed/Expected_Output"/>
+		<property name="compareValActualDir" value="C:/Edifecs/work/batch"/>
+		<property name="compareIncludeMarks" value="**/*.dat"/>
+		<property name="ignoreFieldsFile" value="C:/regression-suite/build/RegressionSuite/conf/comparison-configurations.xml"/>
+		<property name="reportTitle" value="Batch Validation Route Comparison Report"/>
+    </testCase>
+	<tearDown name="TearDownRoute">
+		<property name="routeId" value="TearDownRoute"/>
+		<property name="deleteTracers" value="C:\Edifecs\XEServer\profiles\Batch-CT-TestData-Validation\workspace\tracer\TRACE-20180530-181326-0000002"/>
+    </tearDown>
+</testScript>
